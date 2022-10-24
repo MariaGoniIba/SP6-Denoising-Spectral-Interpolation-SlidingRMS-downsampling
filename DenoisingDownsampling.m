@@ -3,14 +3,10 @@ clear; clc; close all
 load('resample_codeChallenge.mat')
 
 figure(1)
-plot(time, signal, 'ks-', 'linew',3)
-hold on
-plot(origT, origS,'r','linew',3)
-title('Proposal exercise')
+plot(time, signal, 'k-', 'linew',3)
+title('Proposal exercise','FontSize',14)
 
 %% Dealing with NaNs
-% Quick look to the signal and there are plenty of NaNs
-% length(find(isnan(signal)))
 % They are interspearsed (not whole chunk of them) so I interpolate (spline)
 
 s = signal;
@@ -24,8 +20,8 @@ figure(2)
 plot(signal,'ks-', 'linew',3)
 hold on
 plot(s+0.5,'r','linew',3) % offset for better visualization with the solution
-legend({'With NaNs';'Without NaNs'})
-title('Dealing with NaNs')
+legend({'With NaNs';'Without NaNs'},'FontSize',12)
+title('Dealing with NaNs','FontSize',14)
 
 
 %% detect bad segments using sliding RMS
@@ -57,6 +53,7 @@ end
 % plot RMS
 figure(3), clf, hold on
 plot(rms_ts,'s-')
+title('Detecting bad segments with sliding RMS','FontSize',14)
 
 % pick threshold manually based on visual inspection
 thresh = 120;
@@ -69,7 +66,7 @@ signalR( rms_ts>thresh ) = NaN;
 figure(4), clf, hold on
 plot(s,'ks-', 'linew',3)
 plot(signalR,'r','linew',3)
-legend({'Original';'Thresholded'})
+legend({'Original';'Thresholded'},'FontSize',12)
 
 %% Spectral interpolation
 % Detect beginning and end of window
@@ -107,7 +104,8 @@ end
 
 figure(5), clf
 plot(1:length(signalR),[signal signalR filtsig+8],'linew',2)
-legend({'Original';'With gap';'Filtered (+ offset)'})
+legend({'Original';'With gap';'Filtered (+ offset)'},'FontSize',12)
+title('Spectral interpolation','FontSize',14)
 zoom on
 
 %% Resample to regularly spaced
@@ -126,11 +124,5 @@ figure(6)
 plot(time, filtsig, 'k', 'linew',3)
 hold on
 plot(new_time, interp_s+0.3,'r','linew',3)
-legend({'Irregular srate';'Regular srate+offset'})
-
-%% Comparing Mike's and Maria's
-figure(7)
-plot(origT, origS,'k','linew',2)
-hold on
-plot(new_time, interp_s,'r','linew',2)
-legend({'Mike';'Maria'})
+legend({'Irregular srate';'Regular srate+offset'},'FontSize',12)
+title('Regularly spaced','FontSize',14)
